@@ -1,0 +1,65 @@
+:root: {
+    --logo-color: green;
+}
+html {
+    font-size: 14px;
+}
+
+body {
+    background: var(--wa-color-surface-lowered);
+    color: var(--wa-color-text-normal);
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+    height: 100svh;
+    width: 100svw;
+    max-width: 100svw;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+section#loading-screen {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    figure.loading-logo {
+        width: 15rem;
+        height: 15rem;
+    }
+}
+
+.house {
+    fill: var(--wa-color-brand-fill-loud);
+}
+.loading-logo {
+    view-transition-name: main-logo;
+}
+figure#logo-loading {
+    animation: spin 3s linear infinite;
+    transform-origin: center;
+}
+
+figure#logo-nav {
+    width: 3rem;
+    height: 3rem;
+    .house {
+        fill: var(--wa-color-success-fill-loud);
+    }
+}
+
+::view-transition-group(main-logo) {
+    animation-duration: 0.5s;
+}

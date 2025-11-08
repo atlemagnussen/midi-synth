@@ -1,0 +1,23 @@
+{
+  "name": "@wdl/client",
+  "version": "0.1.0",
+  "description": "websynth",
+  "type": "module",
+  "main": "dist/app.es.js",
+  "exports": {
+    ".": "./dist/app.es.js"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "npm run build:vite",
+    "build:vite": "tsc && vite build",
+    "build:watch": "tsc && vite build --watch"
+  },
+  "keywords": [
+    "audio",
+    "midi",
+    "web"
+  ],
+  "author": "atlemagnussen",
+  "license": "ISC"
+}

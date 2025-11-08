@@ -1,0 +1,26 @@
+{
+  "name": "websynth",
+  "version": "0.1.0",
+  "description": "web synth",
+  "keywords": [
+    "web",
+    "midi",
+    "audio"
+  ],
+  "license": "ISC",
+  "author": "atlemagnussen",
+  "private": true,
+  "workspaces": [
+    "client"
+  ],
+  "scripts": {
+    "start": "cd client && npm start && cd .."
+  },
+  "dependencies": {
+    "@awesome.me/webawesome": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "vite": "^7.2.2"
+  }
+}
