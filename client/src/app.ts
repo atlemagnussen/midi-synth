@@ -23,6 +23,12 @@ export class AppShell extends LitElement {
 
         this.midiConnected = true
         access.addEventListener("statechange", this.midiStateChange)
+
+        this.midiDevicesConnected = access.inputs.size
+
+        access.inputs.forEach(i => {
+            console.log(i)
+        })
     }
 
     midiStateChange = (event: MIDIConnectionEvent) => {
