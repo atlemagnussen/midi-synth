@@ -18,6 +18,10 @@ export class AppShell extends SignalWatcher(LitElement) {
     @state()
     connected?: MidiConnected
 
+    connectedCallback() {
+        super.connectedCallback()
+        this.initSynth()
+    }
     async initSynth() {
         const access = await askPermission()
         console.log(access)
