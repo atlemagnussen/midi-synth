@@ -6,6 +6,7 @@ import { MidiConnected } from "./synth/midiConnected.js"
 import "./synth/listDevices.js"
 
 import {SignalWatcher} from "@lit-labs/signals"
+import { MidiPlayer } from "./synth/midiPlayer.js"
 
 doImportWa()
 
@@ -20,6 +21,9 @@ export class AppShell extends SignalWatcher(LitElement) {
 
     @state()
     connected?: MidiConnected
+
+    @state()
+    player?: MidiPlayer
 
     connectedCallback() {
         super.connectedCallback()
@@ -43,11 +47,24 @@ export class AppShell extends SignalWatcher(LitElement) {
     }
     selectDevice = (e: CustomEvent) => {
         const id = e.detail.id as string
-        console.log(id)
+        
+        if (!id)
+            return
 
+        if (!this.connected?.midiAccess)
+            return
+
+        this.player = new MidiPlayer(this.connected.midiAccess, id)
         
     }
     render() {
+
+        if (this.player) {
+            return html`
+                <h2>${this.player._midiInput.name}</h2>
+            `
+        }
+
         return html`
             <h1>Midi</h1>
 

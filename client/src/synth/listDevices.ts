@@ -50,7 +50,7 @@ export class ListDevices extends LitElement {
             <h3>Devices</h3>
             <div class="list">
             ${this.devices.map(d => html`
-                <div class="device" @click=${this.selectDevice(d.id)}>
+                <div class="device" @click=${() => this.selectDevice(d.id)}>
                     <div>${d.id}</div>
                     <div>${d.manufacturer}</div>
                     <div>${d.name}</div>
