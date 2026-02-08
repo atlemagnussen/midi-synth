@@ -5,15 +5,15 @@ export class MidiConnected {
      *
      */
     constructor(midiAccess: MIDIAccess) {
-        this._midiAccess = midiAccess
+        this.midiAccess = midiAccess
         this.setup()
     }
-    _midiAccess: MIDIAccess
+    midiAccess: MIDIAccess
 
     devicesSignal = signal<Array<MidiInputDTO>>([])
 
     get devices() {
-        const devices = Array.from(this._midiAccess.inputs.values())
+        const devices = Array.from(this.midiAccess.inputs.values())
         return devices
     }
 
@@ -23,6 +23,11 @@ export class MidiConnected {
             listMidiInputs.push(convertToDto(d))
         }
         this.devicesSignal.set(listMidiInputs)
+    }
+
+    // when midi device is connected/disconnected
+    midiStateChange = (event: MIDIConnectionEvent) => {
+        console.log(event.port)
     }
 }
 

@@ -24,19 +24,33 @@ export class ListDevices extends LitElement {
             padding: 0.5rem;
             border: 2px solid white;
             border-radius: 4px;
+            &:hover {
+                border-color: blue;
+                cursor: pointer;
+            }
         }
     `
 
     @property()
     devices: Array<MidiInputDTO> = []
 
+    selectDevice(id: string) {
+        var evt = new CustomEvent('select-device', {
+            detail: {
+                id
+            },
+            bubbles: true,
+            composed: true
+        });
+        this.dispatchEvent(evt)
+    }
 
     render() {
         return html`
-            <h1>Devices</h1>
+            <h3>Devices</h3>
             <div class="list">
             ${this.devices.map(d => html`
-                <div class="device">
+                <div class="device" @click=${this.selectDevice(d.id)}>
                     <div>${d.id}</div>
                     <div>${d.manufacturer}</div>
                     <div>${d.name}</div>
