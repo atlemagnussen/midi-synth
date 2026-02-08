@@ -17,7 +17,8 @@
     "start": "cd client && npm start && cd .."
   },
   "dependencies": {
-    "@awesome.me/webawesome": "^3.0.0"
+    "@awesome.me/webawesome": "^3.0.0",
+    "@lit-labs/signals": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^24.10.0",

@@ -1,18 +1,22 @@
 import {doImportWa} from "@ws/client/design/waLoader.js"
 import { html, LitElement, nothing } from "lit"
 import { customElement, state } from "lit/decorators.js"
-import { askPermission } from "./synth.js"
+import { askPermission } from "./synth/synth.js"
+import { MidiConnected } from "./synth/midiConnected.js"
+import "./synth/listDevices.js"
+
+import {SignalWatcher, watch, signal} from "@lit-labs/signals"
 
 doImportWa()
 
 @customElement("app-shell")
-export class AppShell extends LitElement {
+export class AppShell extends SignalWatcher(LitElement) {
 
     @state()
     midiDevicesConnected = 0
 
     @state()
-    midiConnected = false
+    connected?: MidiConnected
 
     async initSynth() {
         const access = await askPermission()
@@ -21,14 +25,7 @@ export class AppShell extends LitElement {
         if (!access)
             return
 
-        this.midiConnected = true
-        access.addEventListener("statechange", this.midiStateChange)
-
-        this.midiDevicesConnected = access.inputs.size
-
-        access.inputs.forEach(i => {
-            console.log(i)
-        })
+        this.connected = new MidiConnected(access)
     }
 
     midiStateChange = (event: MIDIConnectionEvent) => {
@@ -40,8 +37,10 @@ export class AppShell extends LitElement {
             <h1>Midi</h1>
             <wa-button @click=${this.initSynth}>Init synth</wa-button>
 
-            ${this.midiConnected ? html`
-                <p>Connected devices ${this.midiDevicesConnected}` : nothing
+            ${this.connected ? html`
+                <list-devices .devices=${this.connected.devicesSignal.get()}></list-devices>`
+                :
+                html`<p>Midi not connected`
             }
         `
     }
